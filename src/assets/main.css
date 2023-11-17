@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+#app {
+    /* background-color: #242424; */
+    color: #fff0f0;
+
+}
+
+h1 {
+    font-size: 30px;
+}
+
+
+body {
+    background-color: #242424;
+    font-family: 'Source Code Pro',sans-serif;
+    font-size: 20px;
+}

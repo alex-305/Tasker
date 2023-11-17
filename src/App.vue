@@ -1,0 +1,20 @@
+<template>
+  <head>
+    <title>Tasker</title>
+  </head>
+  <div>
+    <main>
+      <NavigationBar/>
+    </main>
+  </div>
+  <div>
+    <RouterView/>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { RouterView } from 'vue-router';
+import NavigationBar from './components/NavigationBar.vue';
+
+
+</script>
