@@ -1,32 +1,25 @@
 <template>
-    <div>
-    </div>
-    <div v-if="taskDropDown">
-        <div v-for="step in stepList" :key="step.id">
-            <button @click="stepFinishToggle(step.id)">{{ step.name }}</button>
-        </div>
+    <div v-for="step in props.stepList" :key="step.id">
+        <button @click="stepFinishToggle(step.id)">{{ step.name }}</button>
     </div>
 </template>
 
 <script setup lang="ts">
-import type { Task } from './TaskMaker.vue';
-import { ref, computed } from 'vue'
+import type { StepArray } from './TaskMaker.vue';
+import { ref } from 'vue'
 
 const props = defineProps<{
-    task:Task
+    stepList:StepArray
 }>()
 
-const stepList = computed(() => props.task.steps);
-
-const taskDropDown = ref(false);
 let allDone = ref(false);
 
 
 const stepFinishToggle = (id:number) => {
     let allFinished = true;
-    stepList.value[id].finished = !stepList.value[id].finished;
-    for(let i = 0; i < stepList.value.length; i++) {
-        if(!stepList.value[i].finished) {
+    //props.stepList[id].finished = !props.stepList[id].finished;
+    for(let i = 0; i < props.stepList.length; i++) {
+        if(!props.stepList[i].finished) {
             allFinished = false;
         }
     }
@@ -37,11 +30,6 @@ const stepFinishToggle = (id:number) => {
 
 
 <style>
-
-.headButton {
-    font-size: 30px;
-    padding: 12px 24px;
-}
 
 
 </style>

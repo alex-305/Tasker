@@ -1,6 +1,5 @@
 <template>
-    <div class="taskManager">
-
+    <div>
         <div>
             <h2>Enter a Task</h2>
             <input type="text" @keyup.enter="setTaskSubmitted()" v-model="taskName" placeholder="Enter the task at hand">
@@ -31,6 +30,7 @@
     import { ref, watch } from 'vue';
 
     const taskList = ref<TaskArray>([]);
+    let newTask:Task;
 
     let taskName = ref<string>('');
     let taskSubmitted = ref(false);
@@ -78,11 +78,13 @@
     const emit = defineEmits(['newTask']);
 
     const createTask = () => {
-        taskList.value.push({
+        newTask = {
             name: taskName.value,
             steps: stepList.value,
             id: taskID++
-        });
+        }
+
+        taskList.value.push(JSON.parse(JSON.stringify(newTask)));
 
         emit('newTask', taskList.value);
 
@@ -93,11 +95,6 @@
 </script>
 
 <style>
-
-.taskManager {
-    display:flex;
-    justify-content: center;
-}
 </style>
 <script lang="ts">
 

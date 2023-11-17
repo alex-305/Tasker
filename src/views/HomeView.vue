@@ -1,38 +1,53 @@
 <template>
-  <div>
-    <TaskMaker/>
-  </div>
-  <div>
-    <h1>Tasks To-Do</h1>
-    <div v-for="task in taskList" :key="task.id" :task="task">
-      <!-- <button @click="testprint()">testclick</button> -->
-      <button class="headButton" @click="dropDownToggle" :style="{ textDecoration : allDone ? 'line-through' : 'none'}">{{ task.name }}</button>
-      <SingleTaskDisplayVue task/>
-
+  <div class="taskManager">
+    <div>
+      <TaskMaker @newTask="handleTaskList"/>
     </div>
+
+    <div>
+      <h1>Tasks To-Do</h1>
+      <div v-for="task in taskList" :key="task.id" :task="task">
+        <button class="headButton" @click="dropDownToggle(task.id)" :style="{ textDecoration : allDone ? 'line-t``hrough' : 'none'}">{{ task.name }}</button>
+        <div v-if="taskDropDown[task.id]">
+          <StepsDisplay :stepList="taskList[task.id].steps"/>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script setup lang="ts">
-import type { Task } from '@/components/TaskMaker.vue';
 import type { TaskArray } from '@/components/TaskMaker.vue'
-import SingleTaskDisplayVue from '../components/StepsDisplay.vue'
+import StepsDisplay from '../components/StepsDisplay.vue'
 import TaskMaker from '@/components/TaskMaker.vue';
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 const taskList = ref<TaskArray>([]);
 
-const handleTaskList
+const handleTaskList = (updatedTasks: TaskArray) => {
+  taskList.value = updatedTasks;
+}
 
-const taskDropDown = ref(false);
+type boolArray = boolean[];
+
+const taskDropDown = ref<boolArray>([]);
+
+watch(taskList, (taskList) => {
+    if(taskList.length !== taskDropDown.value.length) {
+      taskDropDown.value = Array.from({ length: taskList.length })
+    }
+}, {deep: true});
+
 let allDone = ref(false);
 
 
-const dropDownToggle = () => {
-    taskDropDown.value = !taskDropDown.value;
-    console.log(stepList.value.length);
+const dropDownToggle = (taskID:number) => {
+    taskDropDown.value[taskID] = !taskDropDown.value[taskID];
+    console.log(taskDropDown.value[taskID]);
     for(let i = 0; i < 4; i++) {
-        console.log(stepList.value[i].name);
+        console.log(taskList.value[0].steps[i].name);
     }
 }
 
@@ -40,5 +55,8 @@ const dropDownToggle = () => {
 
 <style>
 
+.taskManager {
+    display:flex;
+}
 
 </style>

@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia'
 import type { Task } from '../components/TaskMaker.vue'
-import type { Step } from '../components/TaskMaker.vue'
+import type { StepArray } from '../components/TaskMaker.vue'
 
 export const useTaskStore = defineStore('taskStore', () => {
 
-    const taskCount = 0,
-    const taskList = [] as Task[],
+    const taskCount = 0;
+    const taskList = [] as Task[];
+    const stepList = [] as StepArray[];
 
     function addTask(task:Task|null) {
         if(task) {
@@ -21,5 +22,5 @@ export const useTaskStore = defineStore('taskStore', () => {
         return taskList;
     }
 
-    return (taskCount, taskList, addTask, getTaskCount, getTasks)
+    return (taskCount, taskList, stepList, addTask, getTaskCount, getTasks);
 })
