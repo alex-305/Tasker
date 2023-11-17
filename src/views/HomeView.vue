@@ -59,4 +59,11 @@ const dropDownToggle = (taskID:number) => {
     display:flex;
 }
 
+.headButton {
+  padding: 5px 20px;
+  width: 200px;
+  height: 50px;
+  font-size: 20px;
+}
+
 </style>

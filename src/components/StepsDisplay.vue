@@ -1,25 +1,34 @@
 <template>
     <div v-for="step in props.stepList" :key="step.id">
-        <button @click="stepFinishToggle(step.id)">{{ step.name }}</button>
+        <button class="button" @click="stepFinishToggle(step.id)" :class="{finishedStep : stepDone[step.id]}">{{ step.name }}</button>
     </div>
 </template>
 
 <script setup lang="ts">
 import type { StepArray } from './TaskMaker.vue';
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 const props = defineProps<{
     stepList:StepArray
 }>()
+
+type boolArray = boolean[];
+let stepDone = ref<boolArray>([]);
+
+watch(props.stepList, (stepList) => {
+    if(stepList.length !== stepDone.value.length) {
+        stepDone.value = Array.from({ length: stepList.length })
+    }
+}, {deep: true})
 
 let allDone = ref(false);
 
 
 const stepFinishToggle = (id:number) => {
     let allFinished = true;
-    //props.stepList[id].finished = !props.stepList[id].finished;
+    stepDone.value[id] = !stepDone.value[id];
     for(let i = 0; i < props.stepList.length; i++) {
-        if(!props.stepList[i].finished) {
+        if(!stepDone.value[i]) {
             allFinished = false;
         }
     }
@@ -30,6 +39,14 @@ const stepFinishToggle = (id:number) => {
 
 
 <style>
+.finishedStep {
+    text-decoration: line-through;
+}
 
+.button {
+    width: 200px;
+    height: 30px;
+    font-size: 20px;
+}
 
 </style>

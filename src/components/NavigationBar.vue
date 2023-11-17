@@ -6,9 +6,6 @@
         <RouterLink to="/" active-class="active">Home</RouterLink>
     </div>
     <div>
-        <RouterLink to="/task" active-class="active">Add</RouterLink>
-    </div>
-    <div>
         <RouterLink to="/about" active-class="active">About</RouterLink>
     </div>
 
