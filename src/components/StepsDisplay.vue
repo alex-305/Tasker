@@ -10,9 +10,9 @@ import { ref, watch } from 'vue'
 
 const props = defineProps<{
     stepList:StepArray
+    taskNumber:number
 }>()
 
-type boolArray = boolean[];
 let stepDone = ref<boolArray>([]);
 
 watch(props.stepList, (stepList) => {
@@ -21,8 +21,12 @@ watch(props.stepList, (stepList) => {
     }
 }, {deep: true})
 
-let allDone = ref(false);
+let allDone = ref<doneType>({
+    done: false,
+    taskNumber: props.taskNumber
+});
 
+const emit = defineEmits(['allDone'])
 
 const stepFinishToggle = (id:number) => {
     let allFinished = true;
@@ -32,8 +36,23 @@ const stepFinishToggle = (id:number) => {
             allFinished = false;
         }
     }
-    allDone.value = allFinished;
+    allDone.value.done = allFinished;
+    emit('allDone', allDone.value)
 }
+
+
+
+</script>
+
+<script lang="ts">
+
+type boolArray = boolean[];
+
+export interface doneType {
+    done: boolean,
+    taskNumber:  number
+}
+
 
 </script>
 

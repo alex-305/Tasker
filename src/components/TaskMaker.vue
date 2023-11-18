@@ -11,7 +11,7 @@
                     <div v-for="step in stepList" :key="step.id">
                         <input type="text" v-model="step.name">
                         <button @click="addStep(step.id)">+</button>
-                        <button @click="removeTask(step.id)">X</button>
+                        <button @click="removeStep(step.id)">X</button>
                     </div>
                 </div>
                 <input type="text" @keyup.enter="addStep(stepList.length-1)" v-model="newStep.name" placeholder="Enter steps to finish task">
@@ -60,7 +60,7 @@
         newStep.value = {name: '', finished: false, id: ++stepID}
     };
 
-    const removeTask = (taskID:number) => {
+    const removeStep = (taskID:number) => {
         stepList.value.splice(taskID,1);
         for(let i = taskID; i < stepList.value.length; i++) {
             stepList.value[i].id--;

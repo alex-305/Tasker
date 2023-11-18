@@ -7,9 +7,10 @@
     <div>
       <h1>Tasks To-Do</h1>
       <div v-for="task in taskList" :key="task.id" :task="task">
-        <button class="headButton" @click="dropDownToggle(task.id)" :style="{ textDecoration : allDone ? 'line-t``hrough' : 'none'}">{{ task.name }}</button>
+        <button class="headButton" @click="dropDownToggle(task.id)" :style="{ textDecoration : taskDone[task.id] ? 'line-through' : 'none'}">{{ task.name }}</button>
+        <button v-if="taskDone[task.id]" @click="removeTask(task.id)">X</button>
         <div v-if="taskDropDown[task.id]">
-          <StepsDisplay :stepList="taskList[task.id].steps"/>
+          <StepsDisplay @allDone="handleAllDone" :stepList="taskList[task.id].steps" :taskNumber="task.id"/>
         </div>
 
       </div>
@@ -19,7 +20,6 @@
 </template>
 
 <script setup lang="ts">
-import type { TaskArray } from '@/components/TaskMaker.vue'
 import StepsDisplay from '../components/StepsDisplay.vue'
 import TaskMaker from '@/components/TaskMaker.vue';
 import { ref, watch } from 'vue'
@@ -30,26 +30,39 @@ const handleTaskList = (updatedTasks: TaskArray) => {
   taskList.value = updatedTasks;
 }
 
-type boolArray = boolean[];
+const handleAllDone = (allFinished: doneType) => {
+  taskDone.value[allFinished.taskNumber] = allFinished.done;
+  console.log(allFinished.taskNumber);
+}
 
 const taskDropDown = ref<boolArray>([]);
 
+const taskDone = ref<boolArray>([]);
+
 watch(taskList, (taskList) => {
-    if(taskList.length !== taskDropDown.value.length) {
-      taskDropDown.value = Array.from({ length: taskList.length })
-    }
+  if(taskList.length !== taskDropDown.value.length) {
+    taskDropDown.value = Array.from({ length: taskList.length });
+  }
+  if(taskList.length !== taskDone.value.length) {
+    taskDone.value = Array.from({ length: taskList.length });
+  }
 }, {deep: true});
 
-let allDone = ref(false);
-
-
 const dropDownToggle = (taskID:number) => {
-    taskDropDown.value[taskID] = !taskDropDown.value[taskID];
-    console.log(taskDropDown.value[taskID]);
-    for(let i = 0; i < 4; i++) {
-        console.log(taskList.value[0].steps[i].name);
-    }
+  taskDropDown.value[taskID] = !taskDropDown.value[taskID];
 }
+
+const removeTask = (taskID:number) => {
+  taskList.value.splice(taskID,1);
+}
+
+</script>
+
+<script lang="ts">
+
+import type { TaskArray } from '@/components/TaskMaker.vue'
+import type { doneType } from '@/components/StepsDisplay.vue'
+type boolArray = boolean[];
 
 </script>
 
