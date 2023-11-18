@@ -29,6 +29,8 @@ import { RouterLink } from 'vue-router';
 }
 .navbar a {
     margin-right: 15px;
+    text-decoration: none;
+    color: #242424;
 }
 
 .active {
