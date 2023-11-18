@@ -4,7 +4,7 @@
       <TaskMaker @newTask="handleTaskList"/>
     </div>
 
-    <div>
+    <div v-if="taskList.length > 0">
       <h1>Tasks To-Do</h1>
       <div v-for="task in taskList" :key="task.id" :task="task">
         <button class="headButton" @click="dropDownToggle(task.id)" :style="{ textDecoration : taskDone[task.id] ? 'line-through' : 'none'}">{{ task.name }}</button>
@@ -35,17 +35,19 @@ const handleAllDone = (allFinished: doneType) => {
   console.log(allFinished.taskNumber);
 }
 
-const taskDropDown = ref<boolArray>([]);
+const taskDropDown = ref<boolArray>([false]);
 
-const taskDone = ref<boolArray>([]);
+const taskDone = ref<boolArray>([false]);
 
 watch(taskList, (taskList) => {
   if(taskList.length !== taskDropDown.value.length) {
-    taskDropDown.value = Array.from({ length: taskList.length });
+    taskDone.value.length = taskList.length;
   }
   if(taskList.length !== taskDone.value.length) {
-    taskDone.value = Array.from({ length: taskList.length });
+    taskDone.value.length = taskList.length;
   }
+  console.log(taskDropDown.value.length);
+  console.log(taskDone.value.length)
 }, {deep: true});
 
 const dropDownToggle = (taskID:number) => {
@@ -54,6 +56,12 @@ const dropDownToggle = (taskID:number) => {
 
 const removeTask = (taskID:number) => {
   taskList.value.splice(taskID,1);
+  taskDone.value.splice(taskID,1);
+  taskDropDown.value.splice(taskID,1);
+
+  for(let i = taskID; i < taskList.value.length; i++) {
+    taskList.value[i].id--;
+  }
 }
 
 </script>
