@@ -29,11 +29,14 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 
-    const taskList = ref<TaskArray>([]);
     let newTask:Task;
-
     let taskName = ref<string>('');
     let taskSubmitted = ref(false);
+    let stepID = 0;
+
+    const stepList = ref<StepArray>([]);
+    const newStep = ref<Step>({name: '',finished: false, id: stepID});
+    const taskList = ref<TaskArray>([]);
 
     watch(taskName, (taskName: string) => {
         if(taskName === '') {
@@ -48,11 +51,6 @@ import { ref, watch } from 'vue';
     const setTaskSubmitted = () => {
         taskSubmitted.value = true;
     }
-
-    let stepID = 0;
-
-    const stepList = ref<StepArray>([]);
-    const newStep = ref<Step>({name: '',finished: false, id: stepID});
 
     const addStep = (id:number) => {
         stepList.value.splice(id+1,0,newStep.value);
