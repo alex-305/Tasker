@@ -1,7 +1,7 @@
 <template>
   <div class="taskManager">
     <div>
-      <TaskMaker @newTask="handleTaskList"/>
+      <TaskMaker :listLength="taskList.length" @newTask="handleTaskList"/>
     </div>
 
     <div v-if="taskList.length > 0">
@@ -32,7 +32,6 @@ const handleTaskList = (updatedTasks: TaskArray) => {
 
 const handleAllDone = (allFinished: doneType) => {
   taskDone.value[allFinished.taskNumber] = allFinished.done;
-  console.log(allFinished.taskNumber);
 }
 
 const taskDropDown = ref<boolArray>([false]);
@@ -46,8 +45,6 @@ watch(taskList, (taskList) => {
   if(taskList.length !== taskDone.value.length) {
     taskDone.value.length = taskList.length;
   }
-  console.log(taskDropDown.value.length);
-  console.log(taskDone.value.length)
 }, {deep: true});
 
 const dropDownToggle = (taskID:number) => {

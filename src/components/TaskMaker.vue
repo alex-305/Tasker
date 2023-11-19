@@ -27,7 +27,7 @@
 
 
 <script setup lang="ts">
-    import { ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 
     const taskList = ref<TaskArray>([]);
     let newTask:Task;
@@ -41,28 +41,31 @@
         }
     });
 
+    const props = defineProps<{
+        listLength:number;
+    }>()
+
     const setTaskSubmitted = () => {
         taskSubmitted.value = true;
     }
 
     let stepID = 0;
-    let taskID = 0;
 
     const stepList = ref<StepArray>([]);
     const newStep = ref<Step>({name: '',finished: false, id: stepID});
 
-    const addStep = (taskID:number) => {
-        stepList.value.splice(taskID+1,0,newStep.value);
-        stepList.value[taskID+1].id = taskID+1;
-        for(let i = taskID+2; i < stepList.value.length; i++) {
+    const addStep = (id:number) => {
+        stepList.value.splice(id+1,0,newStep.value);
+        stepList.value[id+1].id = id+1;
+        for(let i = id+2; i < stepList.value.length; i++) {
             stepList.value[i].id++;
         }
         newStep.value = {name: '', finished: false, id: ++stepID}
     };
 
-    const removeStep = (taskID:number) => {
-        stepList.value.splice(taskID,1);
-        for(let i = taskID; i < stepList.value.length; i++) {
+    const removeStep = (id:number) => {
+        stepList.value.splice(id,1);
+        for(let i = id; i < stepList.value.length; i++) {
             stepList.value[i].id--;
         }
         stepID--;
@@ -81,7 +84,7 @@
         newTask = {
             name: taskName.value,
             steps: stepList.value,
-            id: taskID++
+            id: props.listLength
         }
 
         taskList.value.push(JSON.parse(JSON.stringify(newTask)));
