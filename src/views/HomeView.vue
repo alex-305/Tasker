@@ -8,7 +8,7 @@
       <h1>Tasks To-Do</h1>
       <div v-for="task in taskList" :key="task.id" :task="task">
         <button class="headButton" @click="dropDownToggle(task.id)" :style="{ textDecoration : taskDone[task.id] ? 'line-through' : 'none'}">{{ task.name }}</button>
-        <button v-if="taskDone[task.id]" @click="removeTask(task.id)">X</button>
+        <button class="xButton" v-if="taskDone[task.id]" @click="removeTask(task.id)">X</button>
         <div v-if="taskDropDown[task.id]">
           <StepsDisplay @allDone="handleAllDone" :stepList="taskList[task.id].steps" :taskNumber="task.id"/>
         </div>
@@ -82,6 +82,12 @@ type boolArray = boolean[];
   width: 200px;
   height: 50px;
   font-size: 20px;
+}
+
+.xButton {
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
 }
 
 </style>
