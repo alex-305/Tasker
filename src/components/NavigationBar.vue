@@ -21,7 +21,7 @@ import { RouterLink } from 'vue-router';
 
 <style>
 .navbar {
-    background-color: #b6c5de;
+    background-color: #fd79a8;
     display: flex;
     justify-content: left;
     padding: 3px;
@@ -34,7 +34,11 @@ import { RouterLink } from 'vue-router';
 }
 
 .active {
-    background-color: #b6decb;
+    background-color: #81ecec;
+}
+
+.inactive {
+    background-color: #b2bec3;
 }
 
 </style>

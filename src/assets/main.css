@@ -16,3 +16,22 @@ body {
     font-family: 'Source Code Pro',sans-serif;
     font-size: 20px;
 }
+
+.xButton {
+    font-weight: bold;
+    background-color: #ff7675;
+}
+
+.pButton {
+    font-weight: bold;
+    background-color: #55efc4;
+}
+
+.createButton {
+    background: linear-gradient(140deg, #fec9dc, #55efc4, #fec9dc);
+}
+
+input[type="text"], textarea::placeholder {
+    background-color: #dfe6e9;
+}
+

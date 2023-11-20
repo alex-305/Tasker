@@ -3,21 +3,21 @@
         <div>
             <h2>Enter a Task</h2>
             <input type="text" @keyup.enter="setTaskSubmitted()" v-model="taskName" placeholder="Enter the task at hand">
-            <button @click="setTaskSubmitted()">Enter</button>
+            <button class="pButton" @click="setTaskSubmitted()">Enter</button>
             <div v-if="taskSubmitted && taskName !== ''">
                 <h2> {{ taskName }} </h2>
                 <h3>Steps</h3>
                 <div v-if="stepList.length > 0">
                     <div v-for="step in stepList" :key="step.id">
                         <input type="text" v-model="step.name">
-                        <button @click="addStep(step.id)">+</button>
-                        <button @click="removeStep(step.id)">X</button>
+                        <button class="pButton" @click="addStep(step.id)">+</button>
+                        <button class="xButton" @click="removeStep(step.id)">X</button>
                     </div>
                 </div>
                 <input type="text" @keyup.enter="addStep(stepList.length-1)" v-model="newStep.name" placeholder="Enter steps to finish task">
-                <button @click="addStep(stepList.length-1)">Add</button>
+                <button class="pButton" @click="addStep(stepList.length-1)">Add</button>
                 <div>
-                    <button @click="createTask()">Create Task</button>
+                    <button class="createButton" @click="createTask()">Create Task</button>
                 </div>
             </div>
         </div>
