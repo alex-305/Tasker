@@ -40,7 +40,7 @@ import { ref, watch } from 'vue';
 
     watch(taskName, (taskName: string) => {
         if(taskName === '') {
-            taskSubmitted.value = false;
+            resetAll();
         }
     });
 
@@ -86,7 +86,6 @@ import { ref, watch } from 'vue';
         }
 
         taskList.value.push(JSON.parse(JSON.stringify(newTask)));
-
         emit('newTask', taskList.value);
 
         resetAll();

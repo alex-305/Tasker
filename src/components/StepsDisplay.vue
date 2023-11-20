@@ -1,6 +1,6 @@
 <template>
     <div v-for="step in props.stepList" :key="step.id">
-        <button class="button" @click="stepFinishToggle(step.id)" :class="{finishedStep : stepDone[step.id]}">{{ step.name }}</button>
+        <button class="button stepButton" @click="stepFinishToggle(step.id)" :class="{finishedStep : stepDone[step.id]}">{{ step.name }}</button>
     </div>
 </template>
 

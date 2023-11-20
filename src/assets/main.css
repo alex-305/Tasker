@@ -41,6 +41,10 @@ body {
     background: #fab1a0;
 }
 
+.stepButton {
+    background: #ffeaa7;
+}
+
 input[type="text"], textarea::placeholder {
     background-color: #dfe6e9;
 }

@@ -13,10 +13,10 @@
         :class="{'finishedTaskButton':taskDone[task.id], 'activeTaskButton':!taskDone[task.id]}">
         {{ task.name }}
         </button>
-        <button class="xButton" v-if="taskDone[task.id]" @click="removeTask(task.id)">X</button>
         <div v-if="taskDropDown[task.id]">
           <StepsDisplay @allDone="handleAllDone" :stepList="taskList[task.id].steps" :taskNumber="task.id"/>
         </div>
+        <button class="xButton" v-if="taskDone[task.id]" @click="removeTask(task.id)">X</button>
 
       </div>
     </div>
