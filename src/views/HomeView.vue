@@ -1,7 +1,7 @@
 <template>
   <div class="taskManager">
     <div>
-      <TaskMaker :listLength="taskList.length" @newTask="handleTaskList"/>
+      <TaskMaker :listLength="taskList.length"/>
     </div>
 
     <div v-if="taskList.length > 0">
@@ -27,13 +27,10 @@
 <script setup lang="ts">
 import StepsDisplay from '../components/StepsDisplay.vue'
 import TaskMaker from '@/components/TaskMaker.vue';
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 
-const taskList = ref<TaskArray>([]);
-
-const handleTaskList = (updatedTasks: TaskArray) => {
-  taskList.value = updatedTasks;
-}
+const taskStore = useTaskStore();
+const taskList = computed(()=> taskStore.taskList);
 
 const handleAllDone = (allFinished: doneType) => {
   taskDone.value[allFinished.taskNumber] = allFinished.done;
@@ -70,8 +67,8 @@ const removeTask = (taskID:number) => {
 
 <script lang="ts">
 
-import type { TaskArray } from '@/components/TaskMaker.vue'
 import type { doneType } from '@/components/StepsDisplay.vue'
+import { useTaskStore } from '@/stores/taskList';
 type boolArray = boolean[];
 
 </script>

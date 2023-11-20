@@ -27,7 +27,8 @@
 
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
+import { useTaskStore } from '@/stores/taskList';
 
     let newTask:Task;
     let taskName = ref<string>('');
@@ -36,7 +37,8 @@ import { ref, watch } from 'vue';
 
     const stepList = ref<StepArray>([]);
     const newStep = ref<Step>({name: '',finished: false, id: stepID});
-    const taskList = ref<TaskArray>([]);
+    const taskStore = useTaskStore();
+    const taskList = computed(()=> taskStore.taskList);
 
     watch(taskName, (taskName: string) => {
         if(taskName === '') {
@@ -84,7 +86,6 @@ import { ref, watch } from 'vue';
             steps: stepList.value,
             id: props.listLength
         }
-
         taskList.value.push(JSON.parse(JSON.stringify(newTask)));
         emit('newTask', taskList.value);
 
