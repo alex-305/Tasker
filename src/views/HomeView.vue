@@ -84,10 +84,4 @@ type boolArray = boolean[];
   font-size: 20px;
 }
 
-.xButton {
-  width: 50px;
-  height: 50px;
-  font-size: 30px;
-}
-
 </style>
