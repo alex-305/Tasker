@@ -31,7 +31,27 @@ body {
     background: linear-gradient(140deg, #fec9dc, #55efc4, #fec9dc);
 }
 
+.activeTaskButton {
+    font-weight: bold;
+    background: #81ecec;
+}
+
+.finishedTaskButton {
+    font-weight: bold;
+    background: #fab1a0;
+}
+
 input[type="text"], textarea::placeholder {
     background-color: #dfe6e9;
 }
 
+.navbar {
+    background-color: #fd79a8;
+    display: flex;
+    justify-content: left;
+    height: 25px;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+}

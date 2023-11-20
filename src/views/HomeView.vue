@@ -6,8 +6,13 @@
 
     <div v-if="taskList.length > 0">
       <h1>Tasks To-Do</h1>
-      <div v-for="task in taskList" :key="task.id" :task="task">
-        <button class="headButton" @click="dropDownToggle(task.id)" :style="{ textDecoration : taskDone[task.id] ? 'line-through' : 'none'}">{{ task.name }}</button>
+      <div v-for="task in taskList" :key="task.id" :task="task" class="taskDisplay">
+        <button class="headButton" 
+        @click="dropDownToggle(task.id)" 
+        :style="{ textDecoration : taskDone[task.id] ? 'line-through' : 'none'}"
+        :class="{'finishedTaskButton':taskDone[task.id], 'activeTaskButton':!taskDone[task.id]}">
+        {{ task.name }}
+        </button>
         <button class="xButton" v-if="taskDone[task.id]" @click="removeTask(task.id)">X</button>
         <div v-if="taskDropDown[task.id]">
           <StepsDisplay @allDone="handleAllDone" :stepList="taskList[task.id].steps" :taskNumber="task.id"/>
@@ -74,7 +79,7 @@ type boolArray = boolean[];
 <style>
 
 .taskManager {
-    display:flex;
+  display:flex;
 }
 
 .headButton {
@@ -82,6 +87,10 @@ type boolArray = boolean[];
   width: 200px;
   height: 50px;
   font-size: 20px;
+}
+
+.taskDisplay {
+  display: flex;
 }
 
 </style>

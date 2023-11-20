@@ -20,13 +20,6 @@ import { RouterLink } from 'vue-router';
 </script>
 
 <style>
-.navbar {
-    background-color: #fd79a8;
-    display: flex;
-    justify-content: left;
-    padding: 3px;
-
-}
 .navbar a {
     margin-right: 15px;
     text-decoration: none;
