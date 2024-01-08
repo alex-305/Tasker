@@ -9,7 +9,7 @@ export const useTaskStore = defineStore('taskStore', () => {
     function addTask(task:Task|null) {
         if(task) {
             taskList.push(task);
-            taskCount++;
+            taskCount--;
         }
     }
 
